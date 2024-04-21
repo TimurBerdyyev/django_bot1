@@ -7,7 +7,6 @@ category_cb = CallbackData('category', 'id', 'action')
 subcategory_cb = CallbackData('subcategory', 'id', 'action')
 
 
-# Реализована клавиатура для вывода категории
 @sync_to_async
 def get_categories():
     categories = Category.objects.all()
@@ -18,7 +17,6 @@ def get_categories():
     return markup
 
 
-# Реализована клавиатура для вывода подкатегории
 @sync_to_async
 def get_subcategories(cat_id):
     subcategories = SubCategory.objects.filter(subcategory_category_id=cat_id)

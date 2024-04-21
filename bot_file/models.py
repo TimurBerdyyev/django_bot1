@@ -61,8 +61,6 @@ class Product(models.Model):
     is_published = models.BooleanField(verbose_name='Опубликован', default=True)
     product_category = models.ForeignKey(verbose_name='Категория', to='Category', on_delete=models.PROTECT, null=True)
 
-    # ChainedForeignKey Для работы с зависимыми полями (наша подкатегория зависима от категории). Smart Selects
-    # Документация django-smart-selects https://django-smart-selects.readthedocs.io/en/latest/
     product_subcategory = ChainedForeignKey(
         to=SubCategory,
         chained_field='product_category',
@@ -77,7 +75,7 @@ class Product(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Рецепт'
-        verbose_name_plural = 'Рецепты'
+        verbose_name = 'Продукт'
+        verbose_name_plural = 'Продукты'
         db_table = 'products'
         ordering = ['-created_at']

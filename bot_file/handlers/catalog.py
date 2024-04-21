@@ -15,7 +15,7 @@ from ..keyboards.default_kb import markup
 async def show_categories(message: types.Message):
     if sign_in['current_state']:
         if await category_exists():
-            await bot.send_message(chat_id=message.chat.id, text="Выберите категорию из списка 📂",
+            await bot.send_message(chat_id=message.chat.id, text="Выберите категорию из списка",
                                    reply_markup=await get_categories())
         else:
             await bot.send_message(chat_id=message.chat.id, text="К сожалению администратор пока что "
@@ -34,7 +34,6 @@ async def get_products(query):
             photo_id = product.photo.open('rb').read()
             text = f"Рецепт: {product.name}\n\n" \
                    f"Описание: {product.description}\n\n" \
-                
             await bot.send_photo(chat_id=query.message.chat.id, photo=photo_id, caption=text)
     else:
         await bot.send_message(query.message.chat.id, text="К сожалению в этой подкатегории нет рецептов",
@@ -51,7 +50,7 @@ async def show_subcategories(query: types.CallbackQuery):
                                    reply_markup=await get_subcategories(elem[1]))
         else:
             await bot.send_message(chat_id=query.message.chat.id,
-                                   text="Простите, но в этой категории нет рецептов ", reply_markup=markup)
+                                   text="Простите, но в этой категории нет рецептов", reply_markup=markup)
     else:
         await bot.send_message(chat_id=query.message.chat.id,
                                text="Вы не вошли в аккаунт, попробуйте войти в профиль ‼️",
@@ -85,6 +84,6 @@ def category_exists():
 
 
 def catalog_handlers_register():
-    dp.register_message_handler(show_categories, Text(equals='Каталог 🛒'))
+    dp.register_message_handler(show_categories, Text(equals='Каталог'))
     dp.register_callback_query_handler(show_subcategories, category_cb.filter(action='view_categories'))
     dp.register_callback_query_handler(show_products, subcategory_cb.filter(action='view_subcategories'))
