@@ -56,7 +56,6 @@ class Product(models.Model):
     photo = models.ImageField(verbose_name='Фотография', upload_to='products/')
     name = models.CharField(verbose_name='Название', max_length=100)
     description = models.TextField(verbose_name='Описание', blank=False)
-    price = models.PositiveIntegerField(verbose_name='Цена')
     created_at = models.DateTimeField(verbose_name='Время создания', auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name='Время редактирования', auto_now=True)
     is_published = models.BooleanField(verbose_name='Опубликован', default=True)
@@ -78,7 +77,7 @@ class Product(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Продукт'
-        verbose_name_plural = 'Продукты'
+        verbose_name = 'Рецепт'
+        verbose_name_plural = 'Рецепты'
         db_table = 'products'
         ordering = ['-created_at']

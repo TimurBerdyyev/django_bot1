@@ -5,9 +5,9 @@ from .models import Product, Category, TelegramUser, SubCategory
 # Регистрируем модели нашего приложения в Django админке
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'price', 'created_at', 'product_category', 'product_subcategory', 'is_published']
+    list_display = ['id', 'name', 'created_at', 'product_category', 'product_subcategory', 'is_published']
     list_display_links = ['id', 'name']
-    search_fields = ['id', 'name', 'price', 'product_category']
+    search_fields = ['id', 'name', 'product_category']
 
 
 @admin.register(Category)

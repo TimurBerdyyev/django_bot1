@@ -29,15 +29,15 @@ async def show_categories(message: types.Message):
 async def get_products(query):
     elem = query.data.split(':')
     if await subcategory_products_exists(product_subcategory_id=elem[1]):
-        await bot.send_message(chat_id=query.message.chat.id, text="Список товаров которые есть в этой подкатегории 👇 ")
+        await bot.send_message(chat_id=query.message.chat.id, text="Список рецептов которые есть в этой подкатегории 👇 ")
         async for product in Product.objects.filter(product_subcategory_id=elem[1]):
             photo_id = product.photo.open('rb').read()
-            text = f"Товар 🚀: {product.name}\n\n" \
-                   f"Описание 💬: {product.description}\n\n" \
-                   f"Цена 💰: {product.price} рублей"
+            text = f"Рецепт: {product.name}\n\n" \
+                   f"Описание: {product.description}\n\n" \
+                
             await bot.send_photo(chat_id=query.message.chat.id, photo=photo_id, caption=text)
     else:
-        await bot.send_message(query.message.chat.id, text="К сожалению в этой подкатегории нет товаров 🙁",
+        await bot.send_message(query.message.chat.id, text="К сожалению в этой подкатегории нет рецептов",
                                reply_markup=markup)
 
 
@@ -51,7 +51,7 @@ async def show_subcategories(query: types.CallbackQuery):
                                    reply_markup=await get_subcategories(elem[1]))
         else:
             await bot.send_message(chat_id=query.message.chat.id,
-                                   text="Простите, но в этой категории нет товаров 😔", reply_markup=markup)
+                                   text="Простите, но в этой категории нет рецептов ", reply_markup=markup)
     else:
         await bot.send_message(chat_id=query.message.chat.id,
                                text="Вы не вошли в аккаунт, попробуйте войти в профиль ‼️",
@@ -61,7 +61,7 @@ async def show_subcategories(query: types.CallbackQuery):
 # @dp.callback_query_handler(subcategory_cb.filter(action='view_subcategories'))
 async def show_products(query: types.CallbackQuery):
     if sign_in['current_state']:
-        await query.answer("Каталог товаров")
+        await query.answer("Каталог рецептов")
         await get_products(query)
     else:
         await bot.send_message(chat_id=query.message.chat.id,

@@ -20,7 +20,7 @@ class Command(BaseCommand):
         @dp.message_handler(commands=None, regexp=None)
         async def unknown_text(message: types.Message):
             await message.answer("Простите, но я не понимаю вас ☹️\n\n"
-                                 "Попробуйте использовать команду Помощь ⭐️",
+                                 "Попробуйте использовать команду Помощь ",
                                  reply_markup=default_kb.only_help_markup)
 
         executor.start_polling(dp, skip_updates=True, on_startup=on_startup)
