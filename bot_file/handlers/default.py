@@ -39,7 +39,6 @@ async def cmd_start(message: types.Message):
                                reply_markup=sign_inup_kb.markup)
         random_product = await get_random_product()
         if random_product:
-            # Отправка случайного продукта пользователю
             await bot.send_message(chat_id=message.chat.id,
                                    text=f"Случайный продукт для вас: {random_product}",
                                    reply_markup=default_kb.markup)
