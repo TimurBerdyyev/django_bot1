@@ -6,6 +6,7 @@ from ..loader import bot, dp
 from ..keyboards import sign_inup_kb, admin_kb, default_kb
 from ..models import TelegramUser
 from .authorization import sign_in
+from .random import get_random_product
 
 HELP_TEXT = """
 Привет! У нас есть такие команды как:
@@ -36,10 +37,18 @@ async def cmd_start(message: types.Message):
                                     "иначе остальные команды будут не доступны!\n\n"
                                     "Нажми на команду <b>Регистрация ✌️'</b> или <b>Войти</b>",
                                reply_markup=sign_inup_kb.markup)
+        random_product = await get_random_product()
+        if random_product:
+            # Отправка случайного продукта пользователю
+            await bot.send_message(chat_id=message.chat.id,
+                                   text=f"Случайный продукт для вас: {random_product}",
+                                   reply_markup=default_kb.markup)
+        else:
+            await bot.send_message(chat_id=message.chat.id,
+                                   text="К сожалению, в нашем магазине пока нет продуктов.")
+
     except:
-        await message.reply(text="Чтобы можно было общаться с ботом, "
-                                 "ты можешь написать мне в личные сообщение: "
-                                 "https://t.me/yourbot")
+        await message.reply(text="ты можешь написать мне в личные сообщение")
 
 
 # @dp.message_handler(Text(equals='Помощь ⭐️'))

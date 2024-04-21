@@ -34,6 +34,7 @@ async def get_products(query):
             photo_id = product.photo.open('rb').read()
             text = f"Рецепт: {product.name}\n\n" \
                    f"Описание: {product.description}\n\n" \
+                
             await bot.send_photo(chat_id=query.message.chat.id, photo=photo_id, caption=text)
     else:
         await bot.send_message(query.message.chat.id, text="К сожалению в этой подкатегории нет рецептов",
